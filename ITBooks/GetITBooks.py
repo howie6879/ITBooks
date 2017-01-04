@@ -1,5 +1,6 @@
 import wget
 from prettytable import PrettyTable
+from colorama import init, Fore
 from pyquery import PyQuery as pq
 import textwrap
 from conf import config
@@ -15,7 +16,7 @@ class GetITBooks():
         self.db = SqliteDb()
         self.result_field = None
         self.result = None
-        self.page = 0
+        self.page = -5
 
     def search_book(self, title=None, author=None):
         try:
@@ -29,7 +30,8 @@ class GetITBooks():
                         index, book[1], book[3], book[5], book[6], book[10],
                         book[8]
                     ])
-                print(self.result_field.get_string(start=0, end=5))
+                init(autoreset=True)
+                print(Fore.RED + self.get_next_page())
                 message = "We got {0} entries in total. (if u don't know how to do next,just type 'help')".format(
                     len(self.result))
                 print(message)
@@ -61,11 +63,17 @@ class GetITBooks():
                     description = self.result[index][11]
                     des = self.get_description(description)
                     if des:
-                        print(des)
+                        init(autoreset=True)
+                        print(Fore.MAGENTA + des)
                 except:
                     pass
             if param.lower().startswith('get'):
-                pass
+                try:
+                    index = int(param.lower().split(' ')[1]) - 1
+                    url = self.result[index][12]
+                    download_info = self.download_book(url)
+                except:
+                    pass
             if param.lower() == 'help':
                 info_field = PrettyTable(['Command', 'Details'])
                 info_field.add_row(['next', 'show next page'])
@@ -75,19 +83,24 @@ class GetITBooks():
                 info_field.add_row(['get id', 'download'])
                 info_field.add_row(['help', 'show all commands'])
                 info_field.add_row(['quit', 'just like this command'])
-                print(info_field)
+                init(autoreset=True)
+                print(Fore.YELLOW + info_field.get_string())
             if param.lower() == 'quit':
                 exit()
 
     def get_description(self, description):
         if description:
             des = pq(description)
-            return textwrap.fill(des('.entry-content').text(), width=100)
+            return textwrap.fill(str(des('.entry-content').text()), width=100)
         else:
             return 'No Description!'
 
     def download_book(self, url):
-        pass
+        try:
+            download_info = wget.download(url)
+            return download_info
+        except Exception as e:
+            return None
 
 
 if __name__ == '__main__':
