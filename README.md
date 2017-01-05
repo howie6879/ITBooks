@@ -3,12 +3,16 @@
 ### What is ITBooks?
 The project uses scrapy to crawl data from some websites such as allitebooks,digilibraries,etc ,and stores it in sqlite3.
 You can search and download some books that you need.
+
 **Data source**
-- [allitebooks](http://www.allitebooks.com/) √
+
+- [allitebooks](http://www.allitebooks.com/)  √
 - [taiwanebook](http://taiwanebook.ncl.edu.tw/zh-tw)
 - [blah](http://blah.me/)
 - [digilibraries](http://digilibraries.com/)
+
 Run `pip install -r requirements.txt`
+
 ### Usage:
 ```
   abook.py search <title> <author>
