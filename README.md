@@ -14,11 +14,13 @@ You can search and download some books that you need.
 Run `pip install -r requirements.txt`
 
 ### Usage:
+
 ```
   abook.py search <title> <author>
   abook.py title <title>
   abook.py author <author>
 ```
+
 #### Search
 ![search](docs/search.png)
 #### Command
@@ -26,8 +28,11 @@ Run `pip install -r requirements.txt`
 #### download
 ![command](docs/download.png)
 Enjoy reading time !
+
 ### TODO:
+
 - Add more websites
 - Batch download
+
 ### How to update?
 [Update the data](docs/crawl.md)
