@@ -27,3 +27,11 @@ class AllitebooksItem(Item):
     url = Field()
     spider = Field()
     date = Field()
+
+
+class BlahItem(AllitebooksItem):
+    # Primary fields
+    score = Field()
+    download_epub = Field()
+    download_mobi = Field()
+    download_txt = Field()

@@ -1,7 +1,9 @@
-import sys
-sys.path.append("/Users/howie/Documents/programming/python/git/ITBooks")
 import unittest
+import os
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 from ITBooks.database.SqliteDb import SqliteDb
+import ITBooks.con.config
 
 
 class TestDb(unittest.TestCase):
@@ -15,9 +17,15 @@ class TestDb(unittest.TestCase):
     def tearDown(self):
         self.db = None
 
-    def test_sql_search(self):
+    def test_sql_search_allitebooks(self):
         result = self.db.sql_search(
-            title="Mastering Python", author="Rick van Hattem")
+            table="allitebooks",
+            title="Mastering Python",
+            author="Rick van Hattem")
+        self.assertTrue(result)
+
+    def test_sql_search_blah(self):
+        result = self.db.sql_search(table="blah", title="射雕英雄传", author=" 金庸")
         self.assertTrue(result)
 
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 import sys
 import scrapy
@@ -42,7 +43,7 @@ class AllitebooksSpider(scrapy.Spider):
         for url in urls:
             # Remove duplicate links
             sqlDb = AllitebooksPipeline()
-            isExist = sqlDb.search_url(url)
+            isExist = sqlDb.search_url('allitebooks', url)
             if not isExist:
                 yield Request(url, callback=self.parse_item)
 

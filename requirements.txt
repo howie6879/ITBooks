@@ -4,3 +4,4 @@ wget>=3.2
 Scrapy>=1.1.1
 pyquery>=1.2.17
 colorama>=0.3.7
+future>=0.16

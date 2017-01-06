@@ -14,7 +14,7 @@ class AllitebooksPipeline(object):
     def __init__(self):
         settings = get_project_settings()
         _sqlite_file = settings["SQLITE_FILE"]
-        self._sqlite_table = settings["SQLITE_TABLE"]
+        self._sqlite_table = settings["SQLITE_TABLE_ALLITEBOOKS"]
         self.conn = sqlite3.connect(_sqlite_file)
         self.cur = self.conn.cursor()
 
@@ -34,15 +34,28 @@ class AllitebooksPipeline(object):
                 data[key] = value[0]
             column = ','.join(data.keys())
             value = tuple(data.values())
-            insert_sql = "insert into {0}({1}) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)".format(
-                self._sqlite_table, column)
+            if spider.name == "allitebooks":
+                insert_sql = "insert into {0}({1}) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)".format(
+                    spider.name, column)
+            elif spider.name == "blah":
+                insert_sql = "insert into {0}({1}) values (?,?,?,?,?,?,?,?,?,?,?,?)".format(
+                    spider.name, column)
             self.conn.execute(insert_sql, value)
             self.conn.commit()
             return item
 
-    def search_url(self, url):
-        select_sql = "SELECT url FROM {0} WHERE url = \"{1}\"".format(
-            self._sqlite_table, url)
+    def search_url(self, table, url):
+        select_sql = "SELECT url FROM {0} WHERE url = \"{1}\"".format(table,
+                                                                      url)
         result = self.conn.execute(select_sql).fetchall()
         self.conn.close()
         return True if result else False
+
+
+class BlahPipeline(AllitebooksPipeline):
+    def __init__(self):
+        settings = get_project_settings()
+        _sqlite_file = settings["SQLITE_FILE"]
+        self._sqlite_table = settings["SQLITE_TABLE_BLAH"]
+        self.conn = sqlite3.connect(_sqlite_file)
+        self.cur = self.conn.cursor()

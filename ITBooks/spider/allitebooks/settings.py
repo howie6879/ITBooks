@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-# DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 0.5
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
@@ -64,7 +64,7 @@ DOWNLOADER_MIDDLEWARES = {
 
 # Configure item pipelines
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
-ITEM_PIPELINES = {'allitebooks.pipelines.AllitebooksPipeline': 300, }
+ITEM_PIPELINES = {'allitebooks.pipelines.AllitebooksPipeline': 300}
 
 BASE_DIR = os.path.dirname(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -72,7 +72,8 @@ BASE_DIR = os.path.dirname(
 # DATABASE
 DATABASE_DIR = os.path.join(BASE_DIR, 'database')
 SQLITE_FILE = os.path.join(os.path.join(DATABASE_DIR, 'sqlite'), 'books.db')
-SQLITE_TABLE = 'allitebooks'
+SQLITE_TABLE_ALLITEBOOKS = 'allitebooks'
+SQLITE_TABLE_BLAH = 'blah'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html
