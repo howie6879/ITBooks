@@ -13,6 +13,7 @@ class AllitebooksItem(Item):
     title = Field()
     cover = Field()
     author = Field()
+    # International Standard Book Number
     isbn = Field()
     year = Field()
     pages = Field()
@@ -35,3 +36,17 @@ class BlahItem(AllitebooksItem):
     download_epub = Field()
     download_mobi = Field()
     download_txt = Field()
+
+
+class TaiwanebookItem(AllitebooksItem):
+    # Primary fields
+    rename = Field()
+    publication = Field()
+    publisher = Field()
+    # Preservation organization
+    pre_organization = Field()
+    # Edition number
+    edition_number = Field()
+    # accession number
+    accession_number = Field()
+    source = Field()

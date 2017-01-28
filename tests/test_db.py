@@ -8,7 +8,7 @@ import ITBooks.con.config
 
 class TestDb(unittest.TestCase):
     """
-    Tset database class
+    Test database class
     """
 
     def setUp(self):

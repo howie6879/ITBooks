@@ -74,6 +74,7 @@ DATABASE_DIR = os.path.join(BASE_DIR, 'database')
 SQLITE_FILE = os.path.join(os.path.join(DATABASE_DIR, 'sqlite'), 'books.db')
 SQLITE_TABLE_ALLITEBOOKS = 'allitebooks'
 SQLITE_TABLE_BLAH = 'blah'
+SQLITE_TABLE_TAIWANEBOOK = 'taiwanebook'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See http://doc.scrapy.org/en/latest/topics/autothrottle.html

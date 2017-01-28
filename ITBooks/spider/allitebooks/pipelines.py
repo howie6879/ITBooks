@@ -31,7 +31,7 @@ class AllitebooksPipeline(object):
         if valid:
             data = {}
             for key, value in dict(item).items():
-                data[key] = value[0]
+                data[key] = value[0] if value[0] else None
             column = ','.join(data.keys())
             value = tuple(data.values())
             if spider.name == "allitebooks":
@@ -57,5 +57,14 @@ class BlahPipeline(AllitebooksPipeline):
         settings = get_project_settings()
         _sqlite_file = settings["SQLITE_FILE"]
         self._sqlite_table = settings["SQLITE_TABLE_BLAH"]
+        self.conn = sqlite3.connect(_sqlite_file)
+        self.cur = self.conn.cursor()
+
+
+class TaiwanebookPipeline(AllitebooksPipeline):
+    def __init__(self):
+        settings = get_project_settings()
+        _sqlite_file = settings["SQLITE_FILE"]
+        self._sqlite_table = settings["SQLITE_TABLE_TAIWANEBOOK"]
         self.conn = sqlite3.connect(_sqlite_file)
         self.cur = self.conn.cursor()
