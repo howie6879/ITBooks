@@ -16,7 +16,7 @@ else:
 
 class TaiwanebookSpider(scrapy.Spider):
     name = "taiwanebook"
-    allowed_domains = ["taiwanebook.ncl.edu.tw/zh-tw"]
+    allowed_domains = ["taiwanebook.ncl.edu.tw"]
     start_urls = ['http://taiwanebook.ncl.edu.tw/zh-tw/']
 
     def parse(self, response):
@@ -38,6 +38,7 @@ class TaiwanebookSpider(scrapy.Spider):
         """
         urls = response.css('select#select>option::attr(value)').extract()
         for url in set(urls):
+            self.log(url)
             yield Request(url, callback=self.parse_detail)
 
     def parse_detail(self, response):
@@ -51,7 +52,6 @@ class TaiwanebookSpider(scrapy.Spider):
             # Remove duplicate links
             sqlDb = TaiwanebookPipeline()
             isExist = sqlDb.search_url('taiwanebook', url)
-            self.log(isExist)
             if not isExist:
                 yield Request(url, callback=self.parse_item)
 
@@ -61,6 +61,9 @@ class TaiwanebookSpider(scrapy.Spider):
         :param response:
         :return: item
         """
+        login_num = response.url.split('/')[-1]
+        download = "pdfjs_dual/web/viewer.html?file=/ebkFiles/{login_num}/{login_num}.PDF&r2l=true".format(
+            login_num=login_num)
         # Create the loader using response
         l = ItemLoader(item=TaiwanebookItem(), response=response)
         # Load primary fields using css expressions
@@ -68,6 +71,9 @@ class TaiwanebookSpider(scrapy.Spider):
                   MapCompose(str.strip), Join())
         l.add_css('cover', 'div.image>a>div.image>img::attr(src)',
                   MapCompose(str.strip), Join())
+        l.add_css('info', 'div.twelve>div.ui>div.row')
+        l.add_value('download',
+                    urljoin("http://taiwanebook.ncl.edu.tw", download))
 
         # Housekeeping fields
         l.add_value('url', response.url)

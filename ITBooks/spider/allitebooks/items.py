@@ -39,14 +39,15 @@ class BlahItem(AllitebooksItem):
 
 
 class TaiwanebookItem(AllitebooksItem):
-    # Primary fields
-    rename = Field()
-    publication = Field()
-    publisher = Field()
-    # Preservation organization
-    pre_organization = Field()
-    # Edition number
-    edition_number = Field()
-    # accession number
-    accession_number = Field()
-    source = Field()
+    # # Primary fields
+    # rename = Field()
+    # publication = Field()
+    # publisher = Field()
+    # # Preservation organization
+    # pre_organization = Field()
+    # # Edition number
+    # edition_number = Field()
+    # # accession number
+    # accession_number = Field()
+    # source = Field()
+    info = Field()

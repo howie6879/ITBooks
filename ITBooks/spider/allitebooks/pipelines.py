@@ -40,6 +40,9 @@ class AllitebooksPipeline(object):
             elif spider.name == "blah":
                 insert_sql = "insert into {0}({1}) values (?,?,?,?,?,?,?,?,?,?,?,?)".format(
                     spider.name, column)
+            elif spider.name == 'taiwanebook':
+                insert_sql = "insert into {0}({1}) values (?,?,?,?,?,?,?)".format(
+                    spider.name, column)
             self.conn.execute(insert_sql, value)
             self.conn.commit()
             return item
